@@ -1,13 +1,24 @@
 import React from 'react'
 import Todo from './Todo'
+// eslint-disable-next-line
+import { green } from 'logger'
+
+const todoListStyle = {
+  paddingTop: '1em'
+}
 
 const TodoList = props => {
-  const { todos } = props
+  const { handleCompletedChange, handleDeleteTodo, todos } = props
   return (
-    <div>
-      {
-        todos.map(t => <Todo todo={t} />)
-      }
+    <div style={todoListStyle}>
+      {todos.map(t => (
+        <Todo
+          handleDeleteTodo={handleDeleteTodo}
+          handleCompletedChange={handleCompletedChange}
+          key={t._id}
+          todo={t}
+        />
+      ))}
     </div>
   )
 }

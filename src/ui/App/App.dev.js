@@ -1,57 +1,78 @@
-import React, { useState, useEffect } from 'react'
+import React, { /*useState,*/ useEffect } from 'react'
 import { connect } from 'react-redux'
-import { todoCreateRequest, todosReadRequest } from 'store/todo/actions'
+import {
+  todoCreateRequest,
+  todoDeleteRequest,
+  todosReadRequest,
+  todoUpdateRequest,
+} from 'store/todo/actions'
 import { getAllTodos } from 'store/todo/selectors'
 import './App.css'
 import DevTools from 'ui/DevTools'
 import TodoList from 'ui/TodoList'
 import AddTodo from 'ui/AddTodo'
 
-import { green } from 'logger'
+import { green, red } from 'logger'
+
+const devToolStyle = {
+  textAlign: 'left'
+}
 
 const App = props => {
-  const [title, setTitle] = useState('')
-  
-  
-  // const [id, setId] = useState('')
-  
-  const { todoCreateRequest, todosReadRequest, todos } = props
-  useEffect(() => {
-    (async () => {
-      try {
-        await todosReadRequest()
 
-      } catch (e) {
-        console.log('TheError', e)
-      }
-    })()
-  }, [])
+  const { todoCreateRequest, todoDeleteRequest, todosReadRequest, todos, todoUpdateRequest } = props
 
   useEffect(() => {
     ;(async () => {
       try {
-        await todoCreateRequest(title)
+        await todosReadRequest()
       } catch (e) {
         console.log('TheError', e)
       }
     })()
-  }, [])
+  }, [todosReadRequest])
 
-  green('todos', todos)
-  
+  const handleAddTodo = async title => {
+    try {
+      await todoCreateRequest({ title })
+    } catch (e) {
+      red('App.handleAddTodo ERROR:', e)
+    }
+  }
+
+  const handleDeleteTodo = async id => {
+    green('App.handleDeleteTodo: id', id)
+    try {
+      await todoDeleteRequest(id)
+    } catch (e) {
+      red('App.handleDeleteTodo ERROR:', e)
+    }
+  }
+
+  const handleCompletedChange = async todo => {
+    green('handleCompletedChange: todo', todo)
+    try {
+      await todoUpdateRequest(todo)
+    } catch (e) {
+      red('App.handleCompletedChange ERROR:', e)
+    }
+  }
+
   return (
     <div className="App">
       <header className="App-header">
-        <h1>Hi</h1>
-        <AddTodo setTitle={setTitle} />
-        <TodoList todos={todos} />
+        <h1>Your Todo List</h1>
+        <AddTodo handleAddTodo={handleAddTodo} />
+        <TodoList todos={todos} handleCompletedChange={handleCompletedChange} handleDeleteTodo={handleDeleteTodo} />
       </header>
-      <DevTools />
+      <div style={devToolStyle}>
+        <DevTools />
+      </div>
     </div>
   )
 }
 
-const actions = { todoCreateRequest, todosReadRequest }
+const actions = { todoCreateRequest, todoDeleteRequest, todosReadRequest, todoUpdateRequest }
 
 const mapStateToProps = state => {
   return {

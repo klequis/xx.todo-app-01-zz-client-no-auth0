@@ -8,8 +8,11 @@ const devToolsStyle = {
 }
 
 export default createDevTools(
-  <DockMonitor style={devToolsStyle} toggleVisibilityKey="ctrl-h"
-               changePositionKey="ctrl-w">
-    <LogMonitor style={devToolsStyle} />
-  </DockMonitor>
+    <DockMonitor
+      style={devToolsStyle}
+      toggleVisibilityKey="ctrl-h"
+      changePositionKey="ctrl-w"
+    >
+      <LogMonitor style={devToolsStyle} />
+    </DockMonitor>
 )

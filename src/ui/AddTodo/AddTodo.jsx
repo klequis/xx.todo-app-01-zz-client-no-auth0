@@ -1,29 +1,40 @@
 import React, { useState } from 'react'
+// eslint-disable-next-line
+import { green } from 'logger'
+
+const formStyle = {
+  margin: '20px 0 60px 0',
+}
+
+const buttonStyle = {
+  margin: '0 5px 0 5px',
+}
 
 const AddTodo = props => {
   
-  const [_title, _setTitle] = useState('')
+  const [title, setTitle] = useState('')
   
-  const { setTitle } = props
+  const { handleAddTodo } = props
 
   const handleInputChange = e => {
-    _setTitle(e.target.value)
+    setTitle(e.target.value)
   }
 
   const handleOnSubmit = (e) => {
     e.preventDefault()
-    setTitle(_title)
+    handleAddTodo(title)
+    setTitle('')
   }
 
   return (
-    <form onSubmit={handleOnSubmit}>
+    <form style={formStyle} onSubmit={handleOnSubmit}>
       <input
         onChange={handleInputChange}
         type='text'
-        value={_title}
+        value={title}
       />
-      <button type='submit'>Add</button>
-      <button type='button'>Cancel</button>
+      <button style={buttonStyle} type='submit'>Add</button>
+      <button style={buttonStyle} type='button'>Cancel</button>
     </form>
   )
 }

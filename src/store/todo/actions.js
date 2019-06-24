@@ -1,14 +1,17 @@
 import {
   TODO_CREATE_KEY,
-  TODOS_READ_REQUEST_KEY,
-  TODOS_READ_KEY,
   TODOS_CREATE_REQUEST_KEY,
+  TODOS_DELETE_REQUEST_KEY,
+  TODOS_READ_KEY,
   TODOS_READ_BY_ID_REQUEST_KEY,
-  TODOS_DELETE_REQUEST_KEY
+  TODOS_READ_REQUEST_KEY,
+  TODOS_UPDATE_REQUEST_KEY
 } from './constants'
 import { createRequestThunk } from '../action-helpers'
 import api from 'api'
 import { red } from 'logger'
+
+// eslint-disable-next-line
 import { purple, green } from 'logger'
 
 export const todoAdd = (newTodo) => {
@@ -65,5 +68,16 @@ export const todoDeleteRequest = createRequestThunk({
   failure: [
     (error) =>
       console.log('(7) todoDeleteRequestCall: request failed', error)
+  ]
+})
+
+// Update
+export const todoUpdateRequest = createRequestThunk({
+  request: api.todos.update,
+  key: TODOS_UPDATE_REQUEST_KEY,
+  success: [todosReadRequest],
+  failure: [
+    (error) =>
+      console.log('(7) todoUpdateRequestCall: request failed', error)
   ]
 })

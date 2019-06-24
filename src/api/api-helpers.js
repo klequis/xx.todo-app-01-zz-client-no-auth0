@@ -1,4 +1,6 @@
 import fetch from 'cross-fetch'
+
+// eslint-disable-next-line
 import { orange } from 'logger'
 
 // const logRequest = (url, options, headers) => {
