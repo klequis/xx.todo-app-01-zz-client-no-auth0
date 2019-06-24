@@ -1,0 +1,12 @@
+{
+  "extends": "react-app",
+  "parser": "babel-eslint",
+  "plugins": [
+    "react-hooks"
+  ],
+  "rules": {
+    "semi": ["warn", "never"],
+    "quotes": ["warn", "single"],
+    "jsx-a11y/href-no-hash": 0
+  }
+}
