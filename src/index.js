@@ -7,6 +7,10 @@ import configureStore from './store/configureStore'
 import './index.css'
 import App from 'ui/App'
 
+import { green } from 'logger'
+
+
+
 const store = configureStore()
 
 const renderApp = () =>

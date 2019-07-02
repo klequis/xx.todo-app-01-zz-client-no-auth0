@@ -22,7 +22,7 @@ const devToolStyle = {
 const App = props => {
 
   const { todoCreateRequest, todoDeleteRequest, todosReadRequest, todos, todoUpdateRequest } = props
-
+  
   useEffect(() => {
     ;(async () => {
       try {
