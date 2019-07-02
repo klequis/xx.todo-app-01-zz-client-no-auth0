@@ -11,6 +11,7 @@ import './App.css'
 import DevTools from 'ui/DevTools'
 import TodoList from 'ui/TodoList'
 import AddTodo from 'ui/AddTodo'
+import NavBar from 'ui/NavBar'
 
 import { green, red } from 'logger'
 
@@ -60,6 +61,7 @@ const App = props => {
 
   return (
     <div className="App">
+      <NavBar />
       <header className="App-header">
         <h1>Your Todo List</h1>
         <AddTodo handleAddTodo={handleAddTodo} />
