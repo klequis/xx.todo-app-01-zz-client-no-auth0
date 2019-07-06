@@ -26,7 +26,7 @@ const App = props => {
   useEffect(() => {
     ;(async () => {
       try {
-        await todosReadRequest()
+        // await todosReadRequest()
       } catch (e) {
         console.log('TheError', e)
       }
