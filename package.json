@@ -4,7 +4,7 @@
   "private": true,
   "proxy": "http://localhost:3030",
   "scripts": {
-    "start": "NODE_PATH=./src node -r dotenv/config scripts/start.js",
+    "start": "NODE_PATH=./src node scripts/start.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js"
   },
@@ -13,7 +13,7 @@
     "@svgr/webpack": "4.1.0",
     "@typescript-eslint/eslint-plugin": "1.6.0",
     "@typescript-eslint/parser": "1.6.0",
-    "auth0-js": "^9.11.1",
+    "auth0-js": "^9.11.0",
     "babel-eslint": "10.0.1",
     "babel-jest": "^24.8.0",
     "babel-loader": "8.0.5",
@@ -24,6 +24,7 @@
     "case-sensitive-paths-webpack-plugin": "2.2.0",
     "cross-fetch": "^3.0.4",
     "css-loader": "2.1.1",
+    "dotenv": "^8.0.0",
     "dotenv-expand": "4.2.0",
     "eslint": "^5.16.0",
     "eslint-config-react-app": "^4.0.1",

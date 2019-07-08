@@ -1,18 +1,7 @@
 import auth0 from 'auth0-js'
-// import config from 'config'
-
-import { green } from 'logger'
 
 class Auth {
   constructor() {
-    // this.auth0 = new auth0.WebAuth({
-      // domain: config.auth0.domain,
-      // audience: config.auth0.audience,
-      // clientID: config.auth0.clientId,
-      // redirectUri: config.auth0.redirectUri,
-      // responseType: config.auth0.responseType,
-      // scope: config.auth0.scope
-    // })
     this.auth0 = new auth0.WebAuth({
       domain: 'klequis-todo.auth0.com',
       audience: 'https://klequis-todo.auth0.com/userinfo',
@@ -27,7 +16,6 @@ class Auth {
     this.isAuthenticated = this.isAuthenticated.bind(this)
     this.signIn = this.signIn.bind(this)
     this.signOut = this.signOut.bind(this)
-    green('this', this)
   }
 
   getProfile() {
