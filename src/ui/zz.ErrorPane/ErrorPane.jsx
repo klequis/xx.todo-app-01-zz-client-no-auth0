@@ -1,4 +1,4 @@
-import React from "react";
+import React from "react"
 import { isEmpty } from 'ramda'
 
 class ErrorPane extends React.Component {

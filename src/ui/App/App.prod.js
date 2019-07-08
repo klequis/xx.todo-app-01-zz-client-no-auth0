@@ -1,6 +1,6 @@
-import React from "react";
-import logo from "./logo.svg";
-import "./App.css";
+import React from "react"
+import logo from "./logo.svg"
+import "./App.css"
 import Get from './Get'
 import Post from './Post'
 import Delete from './Delete'
@@ -47,8 +47,8 @@ class App extends React.Component {
           </div>
         </header>
       </div>
-    );
+    )
   }
 }
 
-export default App;
+export default App

@@ -30,7 +30,7 @@ class GetForm extends React.Component  {
       setData(this.props.todos)
     } catch (e) {
       setError(e)
-      console.log('FAILURE');
+      console.log('FAILURE')
       console.log('ERROR:', e)
     }
   }

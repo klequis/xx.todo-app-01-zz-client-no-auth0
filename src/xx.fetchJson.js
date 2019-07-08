@@ -4,7 +4,7 @@ const checkErrors = (res) => {
     return Promise.reject({
       status: res.status,
       message: res.statusText
-    }); 
+    }) 
   }
   return res
 }
@@ -27,15 +27,15 @@ export default fetchJson
 
 
 const markRequestPending = () => {
-  console.log('markRequestPending');
+  console.log('markRequestPending')
 }
 
 const markRequestSuccess = () => {
-  console.log("markRequestSuccess");
+  console.log("markRequestSuccess")
 }
 
 const markRequestFailed = () => {
-  console.log("markRequestFailed");
+  console.log("markRequestFailed")
 }
 
 const createRequestThunkSimple = ({ request, key, success, failure }) => {
@@ -44,12 +44,12 @@ const createRequestThunkSimple = ({ request, key, success, failure }) => {
     dispatch(markRequestPending(key))
     return request(...args)
       .then(data => {
-        dispatchEvent(success(data));
-        dispatch(markRequestSuccess(key));
+        dispatchEvent(success(data))
+        dispatch(markRequestSuccess(key))
       })
       .catch(reason => {
-        dispatchEvent(failure(reason));
-        dispatch(markRequestFailed(reason));
+        dispatchEvent(failure(reason))
+        dispatch(markRequestFailed(reason))
       })
   }
 }
