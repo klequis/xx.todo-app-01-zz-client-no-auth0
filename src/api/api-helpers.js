@@ -1,4 +1,5 @@
 import fetch from 'cross-fetch'
+// import { useAuth0 } from 'react-auth0-spa'
 
 // eslint-disable-next-line
 import { orange } from 'logger'
@@ -12,10 +13,13 @@ import { orange } from 'logger'
 // }
 
 export const fetchJson = async (url, options = {}) => {
+  // const { getTokenSilently } = useAuth0()
+  // const token = await getTokenSilently()
   let headers = {
     ...options.headers,
-    'Accept': 'application/json',
+    Accept: 'application/json',
     'Content-Type': 'application/json',
+    // Authorization: `Bearer ${token}`
   }
   // logRequest(url, options, headers)
 

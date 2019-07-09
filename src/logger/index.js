@@ -35,7 +35,7 @@ const stylePurple = [
 
 
 const checkValue = (value) => {
-  if (!value) {
+  if (value === undefined) {
     return ''
   } else {
     return value
@@ -81,36 +81,36 @@ const makeMessage = (message = '', value = '', color = '', indent = 0) => {
   console.log(`${padding}${nMessage}`, style, value)
 }
 
-export const yellow = (message = '', value = '') => {
+export const yellow = (message = '', value = undefined) => {
   makeMessage(message, value, 'yellow')
 }
-export const blue = (message = '', value = '') => {
+export const blue = (message = '', value = undefined) => {
   makeMessage(message, value, 'blue')
 }
-export const red = (message = '', value = '') => {
+export const red = (message = '', value = undefined) => {
   makeMessage(message, value, 'red')
 }
-export const green = (message = '', value = '') => {
+export const green = (message = '', value = undefined) => {
   makeMessage(message, value, 'green')
 }
 
-export const orange = (message = '', value = '', indent = 0) => {
+export const orange = (message = '', value = undefined, indent = 0) => {
 
   makeMessage(message, value, 'orange', indent)
 }
 
-export const pink = (message = '', value = '') => {
+export const pink = (message = '', value = undefined) => {
   makeMessage(message, value, 'pink')
 }
 
-export const purple = (message = '', value = '') => {
+export const purple = (message = '', value = undefined) => {
   makeMessage(message, value, 'purple')
 }
 
-export const log = (message = '', value = '', color = '', indent = false) => {
+export const log = (message = '', value = undefined, color = '', indent = false) => {
   let count = 3
   if (color === '') { count-- }
-  if (value === '') { count-- }
+  if (value === undefined) { count-- }
 
   let nMessage
   if (count === 1) {

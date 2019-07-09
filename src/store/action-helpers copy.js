@@ -12,7 +12,6 @@ export const logError = (err, key) => {
   red(`actions.logError(key:${key})`, err)
 }
 
-
 export const createRequestThunk = ({
   request,
   key,
@@ -22,9 +21,9 @@ export const createRequestThunk = ({
 }) => {
   return (...args) => dispatch => {
     const requestKey = typeof key === 'function' ? key(...args) : key
-
     start.forEach(actionCreator => dispatch(actionCreator()))
     dispatch(requestPending(requestKey))
+    
     return request(...args)
       .then(data => {
         success.forEach(actionCreator => dispatch(actionCreator(data)))
@@ -36,7 +35,6 @@ export const createRequestThunk = ({
       })
   }
 }
-
 
 // export const createRequestThunk = ({
 //   request,

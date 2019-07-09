@@ -1,7 +1,6 @@
 import 'babel-polyfill'
 import React from 'react'
 import { render } from 'react-dom'
-import { BrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import { Auth0Provider } from './react-auth0-spa'
 import config from 'config'
@@ -10,8 +9,6 @@ import './index.css'
 import App from 'ui/App'
 
 import { green } from 'logger'
-
-
 
 const store = configureStore()
 
@@ -26,18 +23,18 @@ const onRedirectCallback = appState => {
   )
 }
 
+green('config', config)
+
 const renderApp = () =>
   render(
     <Provider store={store}>
       <Auth0Provider
-        client_id={config.clientId}
-        domain={config.domain}
+        client_id={config.auth0.clientId}
+        domain={config.auth0.domain}
         onRedirectCallback={onRedirectCallback}
         redirect_uri={window.location.origin}
       >
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
+        <App />
       </Auth0Provider>
     </Provider>,
     document.getElementById('root')

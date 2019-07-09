@@ -1,39 +1,53 @@
 import React from 'react'
+import { useAuth0 } from 'react-auth0-spa'
 import { Link, withRouter } from 'react-router-dom'
 // eslint-disable-next-line
 import { green } from 'logger'
 
-function NavBar(props) {
-  const signOut = () => {
-    // auth0Client.signOut()
-    props.history.replace('/')
+const styles = {
+  wrapper: {
+    display: 'flex'
   }
-  // green('isAuthenticated', auth0Client.isAuthenticated())
+}
+
+function NavBar(props) {
+  const { user, isAuthenticated, loginWithRedirect, logout } = useAuth0()
+
+  const logoutWithRedirect = () =>
+    logout({
+      returnTo: window.location.origin
+    })
+
   return (
-    <nav className="navbar navbar-dark bg-primary fixed-top">
-      <Link className="navbar-brand" to="/">
-        Q&App
-      </Link>
-      {/* {!auth0Client.isAuthenticated() && ( */}
-        <button className="btn btn-dark" /*onClick={auth0Client.signIn}*/>
+    <nav
+      style={styles.wrapper}
+      className="navbar navbar-dark bg-primary fixed-top"
+    >
+      {!isAuthenticated && (
+        <button
+          className="btn btn-dark"
+          onClick={() => loginWithRedirect({})}
+        >
           Sign In
         </button>
-      {/* )} */}
-      {/* {auth0Client.isAuthenticated() && ( */}
+      )}
+
+      {isAuthenticated && (
         <div>
-          <label className="mr-2 text-white">
-            {/* {auth0Client.getProfile().name} */}
-          </label>
+          {/* <img
+            src={user.picture}
+            alt="Profile"
+            className="nav-user-profile"
+          /> */}
+          {/* <label className="mr-2 text-white">{user.nickname}</label> */}
           <button
             className="btn btn-dark"
-            onClick={() => {
-              signOut()
-            }}
+            onClick={() => logoutWithRedirect()}
           >
             Sign Out
           </button>
         </div>
-      {/* )} */}
+      )}
     </nav>
   )
 }

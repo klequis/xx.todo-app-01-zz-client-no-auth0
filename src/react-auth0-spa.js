@@ -1,36 +1,46 @@
 import React, { useState, useEffect, useContext } from 'react'
 import createAuth0Client from '@auth0/auth0-spa-js'
 // eslint-disable-next-line
-import { green }  from './logger'
+import { green } from './logger'
 
 const DEFAULT_REDIRECT_CALLBACK = () =>
   window.history.replaceState({}, document.title, window.location.pathname)
 
 export const Auth0Context = React.createContext()
 export const useAuth0 = () => useContext(Auth0Context)
-export const Auth0Provider = (props /*{
-  // children,
-  // onRedirectCallback = DEFAULT_REDIRECT_CALLBACK,
-  // ...initOptions // values from auth_config.json
-}*/) => {
+export const Auth0Provider = (props) => {
   const [isAuthenticated, setIsAuthenticated] = useState()
   const [user, setUser] = useState()
   const [auth0Client, setAuth0] = useState()
   const [loading, setLoading] = useState(true)
   const [popupOpen, setPopupOpen] = useState(false)
 
-  // 4 values from when Auth0Provider is initiated in src/index.js
-  const { children, onRedirectCallback=DEFAULT_REDIRECT_CALLBACK, ...initOptions} = props
+  // console.group('react-auth0-spa.js')
+  // green('isAuthenticated', isAuthenticated)
+  // green('user', user)
+  // green('auth0Client', auth0Client)
+  // green('loading', loading)
+  // green('popupOpen', popupOpen)
+  // console.groupEnd()
 
+  // 4 values from when Auth0Provider is initiated in src/index.js
+  const {
+    children,
+    onRedirectCallback = DEFAULT_REDIRECT_CALLBACK,
+    ...initOptions
+  } = props
+
+  // green('initOptions', initOptions)
+  // green('onRedirectCallback', onRedirectCallback)
 
   useEffect(() => {
-    green('useEffect')
     const initAuth0 = async () => {
       const auth0FromHook = await createAuth0Client(initOptions)
       setAuth0(auth0FromHook)
 
       if (window.location.search.includes('code=')) {
         const { appState } = await auth0FromHook.handleRedirectCallback()
+        // green('appState', appState)
         onRedirectCallback(appState)
       }
 
@@ -50,7 +60,7 @@ export const Auth0Provider = (props /*{
   }, [])
 
   const loginWithPopup = async (params = {}) => {
-    green('loginWityPopup')
+    // green('loginWityPopup')
     setPopupOpen(true)
     try {
       await auth0Client.loginWithPopup(params)
