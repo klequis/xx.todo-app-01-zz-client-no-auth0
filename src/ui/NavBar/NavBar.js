@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link, withRouter } from 'react-router-dom'
 import {
-  isAuthenticated,
+
   loginWithPopup,
   logoutWithRedirect,
   user
@@ -18,9 +18,10 @@ const styles = {
 }
 
 function NavBar(props) {
+  
+  const { isAuthenticated } = props
   green('NavBar: isAuthenticated', isAuthenticated)
   green('NavBar: user', user)
-
   const handleLogoutClick = () => {
     logoutWithRedirect({
       returnTo: window.location.origin

@@ -1,12 +1,18 @@
-import React from 'react'
-import { BrowserRouter as Router /*, Route, Link, Switch */ } from 'react-router-dom'
+import React, { useEffect } from 'react'
+import { connect } from 'react-redux'
+import { getUser, getIsAuthenticated } from 'store/auth/selectors'
+import { setUser, setIsAuthenticated } from 'store/auth/actions'
+import { user, isAuthenticated } from 'react-auth0-spa-2'
+import {
+  BrowserRouter as Router /*, Route, Link, Switch */
+} from 'react-router-dom'
 import './App.css'
 import DevTools from 'ui/DevTools'
-// import Todos from 'ui/Todos'
 import NavBar from 'ui/NavBar'
+
 // import Home from 'ui/Home'
 // import PrivateRoute from 'elements/PrivateRoute'
-// import { loginWithPopup, logout } from 'react-auth0-spa-2'
+
 // eslint-disable-next-line
 import { green, red } from 'logger'
 
@@ -15,20 +21,23 @@ const devToolStyle = {
 }
 
 const App = props => {
-  // const handleLoginClick = () => {
-  //   loginWithPopup()
-  // }
-  // const handleLogoutClick = () => {
-  //   logout()
-  // }
+  green('App: user', user)
+  green('App: isAuthenticated', isAuthenticated)
+  useEffect(() => {
+    green('useEffect')
+    setUser(user)
+    setIsAuthenticated(isAuthenticated)
+  })
+
   return (
     <div className="App">
       <h1>Hi from App</h1>
+      isAuthenticated: {isAuthenticated() ? 'yes' : 'no'}
       {/* <Todos /> */}
       {/* <button onClick={handleLoginClick}>Login</button> */}
       {/* <button onClick={handleLogoutClick}>Log out</button> */}
       <Router>
-        <NavBar />
+        <NavBar isAuthenticated={isAuthenticated} />
         {/* <header className="App-header"> */}
         {/* <Link to='/todos'>Todos</Link> */}
         {/* <Switch> */}
@@ -44,4 +53,14 @@ const App = props => {
   )
 }
 
-export default App
+const mapStateToProps = state => {
+  
+  return {
+    user: getUser(state),
+    isAuthenticated: getIsAuthenticated(state)
+  }
+}
+
+const actions = { setUser, setIsAuthenticated }
+
+export default connect(mapStateToProps, actions)(App)

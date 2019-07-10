@@ -1,6 +1,5 @@
 // So make this a compoent and use connect to put props in Redux?
 
-
 import createAuth0Client from '@auth0/auth0-spa-js'
 import config from 'config'
 // eslint-disable-next-line
@@ -22,11 +21,19 @@ const DEFAULT_REDIRECT_CALLBACK = () =>
 // Should the settings being managed via hooks in the orig example be in Redux?
 // ** I think I solved this by having renderApp in index.js be async and putting in it `await init(onRedirectCallback)`
 
-export let isAuthenticated = false
+let _isAuthenticated = false
+
+export const isAuthenticated = () => {
+  green('SPA: isAuthenticated', _isAuthenticated)
+  return _isAuthenticated
+}
+
+
 export let user = undefined
 export let auth0Client = undefined
 export let isLoading = true
 export let popupOpen = false
+
 
 export const init = async (onRedirectCallback = DEFAULT_REDIRECT_CALLBACK) => {
   // green('init')
@@ -52,9 +59,8 @@ export const init = async (onRedirectCallback = DEFAULT_REDIRECT_CALLBACK) => {
       onRedirectCallback(appState)
     }
     // green('three')
-    isAuthenticated = await auth0Client.isAuthenticated()
-    // green('isAuthenticated', isAuthenticated)
-    user = isAuthenticated
+    
+    user = _isAuthenticated
       ? await auth0Client.getUser()
       : undefined
     // green('user', user)
@@ -67,6 +73,7 @@ export const init = async (onRedirectCallback = DEFAULT_REDIRECT_CALLBACK) => {
   
 }
 
+
 export const loginWithPopup = async (params = {}) => {
     popupOpen = true
     try {
@@ -77,7 +84,7 @@ export const loginWithPopup = async (params = {}) => {
       popupOpen = false
     }
     user = await auth0Client.getUser()
-    isAuthenticated = true
+    _isAuthenticated = true
   }
 
 export const handleRedirectCallback = async () => {
@@ -86,34 +93,13 @@ export const handleRedirectCallback = async () => {
   await auth0Client.handleRedirectCallback()
   user = await auth0Client.getUser()
   isLoading = false
-  isAuthenticated = true
+  _isAuthenticated = true
 }
 
-export const logoutWithRedirect = (...params) => auth0Client.logout(...params)
+export const logoutWithRedirect = (...params) => {
+  auth0Client.logout(...params)
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+export const getTokenSilently = async (...params) => {
+  return await auth0Client.getTokenSilently(...params)
+}
