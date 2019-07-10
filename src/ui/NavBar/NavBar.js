@@ -1,8 +1,15 @@
 import React from 'react'
-import { useAuth0 } from 'react-auth0-spa'
 import { Link, withRouter } from 'react-router-dom'
+import {
+  isAuthenticated,
+  loginWithPopup,
+  logoutWithRedirect,
+  user
+} from 'react-auth0-spa-2'
 // eslint-disable-next-line
 import { green } from 'logger'
+
+
 
 const styles = {
   wrapper: {
@@ -11,23 +18,27 @@ const styles = {
 }
 
 function NavBar(props) {
-  const { user, isAuthenticated, loginWithRedirect, logout } = useAuth0()
+  green('NavBar: isAuthenticated', isAuthenticated)
+  green('NavBar: user', user)
 
-  const logoutWithRedirect = () =>
-    logout({
+  const handleLogoutClick = () => {
+    logoutWithRedirect({
       returnTo: window.location.origin
     })
+  }
+
+  const handleLoginClick = () => {
+    loginWithPopup()
+  }
 
   return (
     <nav
       style={styles.wrapper}
       className="navbar navbar-dark bg-primary fixed-top"
     >
+      <h3>nav bar</h3>
       {!isAuthenticated && (
-        <button
-          className="btn btn-dark"
-          onClick={() => loginWithRedirect({})}
-        >
+        <button className="btn btn-dark" onClick={handleLoginClick}>
           Sign In
         </button>
       )}
@@ -40,10 +51,7 @@ function NavBar(props) {
             className="nav-user-profile"
           /> */}
           {/* <label className="mr-2 text-white">{user.nickname}</label> */}
-          <button
-            className="btn btn-dark"
-            onClick={() => logoutWithRedirect()}
-          >
+          <button className="btn btn-dark" onClick={handleLogoutClick}>
             Sign Out
           </button>
         </div>

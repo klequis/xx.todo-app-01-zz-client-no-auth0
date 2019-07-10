@@ -5,7 +5,7 @@ const config = {
     domain: domain,
     audience: `https://${domain}/userinfo`,
     clientId: 'Hav4pitWXpDGkMaAxpj7rxHYuwAZovyI',
-    redirectUri: 'http://localhost:3000/callback',
+    redirectUri: 'http://localhost:3000/',
     responseType: 'id_token',
     scope: 'openid profile'
   }
